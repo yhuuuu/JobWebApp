@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "JobHunt Importer",
+  "version": "1.3",
+  "description": "Import LinkedIn jobs + auto-fill any job application",
+  "permissions": ["activeTab", "scripting", "storage", "tabs"],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "JobHunt Helper"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.linkedin.com/jobs/*",
+        "https://www.linkedin.com/jobs/collections/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
