@@ -221,16 +221,18 @@ Description: ${job.description}
 - ZERO em-dashes (—), en-dashes (–), or Unicode dashes (‑) anywhere in the resume. Replace ALL dashes with commas or periods. No exceptions.
 - No semicolons stacked. No triple adjectives.
 - If a bullet has a number (35 systems, $19B, 30%), keep it. Numbers are good. Vague superlatives are not.
+- NEVER end a bullet point with a period. Bullets do not get periods. Example: "Ran discovery sessions across 35 systems" NOT "Ran discovery sessions across 35 systems."
+- Skills categories must be bold: **Core Tech:** not just "Core Tech:"
 
-## Section Order (output in EXACTLY this order):
+## Section Order (output in EXACTLY this order, matching the Word template):
 1. JOB_TITLE
 2. SUMMARY_SECTION
 3. SKILLS_CONTENT
 4. EY_EXPERIENCE (5-7 bullets)
 5. WELLMED_EXPERIENCE (exactly 3 bullets)
-6. PROFESSIONAL_DEVELOPMENT (certs + bootcamp, dated)
-7. RECIPE_PROJECT_BULLETS (3 bullets)
-8. PLANT_PROJECT_BULLETS (3 bullets)
+6. RECIPE_PROJECT_BULLETS (3 bullets)
+7. PLANT_PROJECT_BULLETS (3 bullets)
+8. PROFESSIONAL_DEVELOPMENT (certs + bootcamp, dated)
 9. EDUCATION_SECTION
 10. COACHING NOTE
 
@@ -243,38 +245,38 @@ SUMMARY_SECTION
 <EXACTLY 3 sentences. No sentence over 25 words. Consulting-to-SaaS transition framing.>
 
 SKILLS_CONTENT
-Core Tech: <most relevant tech skills first>
-Solutions Consulting: <most relevant consulting skills first>
-Tools: <relevant tools>
-Languages: Native/Fluent in English, Mandarin, and Cantonese
+• **Core Tech:** <most relevant tech skills first>
+• **Solutions Consulting:** <most relevant consulting skills first>
+• **Tools:** <relevant tools>
+• **Languages:** Native/Fluent in English, Mandarin, and Cantonese
 
 EY_EXPERIENCE
-• <bullet with number/outcome — pick 5-7 most relevant>
-• <bullet>
-• <bullet>
-• <bullet>
-• <bullet>
+• <bullet with number/outcome, NO period at end — pick 5-7 most relevant>
+• <bullet, no period>
+• <bullet, no period>
+• <bullet, no period>
+• <bullet, no period>
 
 WELLMED_EXPERIENCE
-• <relevant bullet with outcome>
-• <relevant bullet with outcome>
-• <relevant bullet with outcome>
-
-PROFESSIONAL_DEVELOPMENT
-• Google Data Analytics Professional Certificate — Coursera (Feb 2022)
-• Data Analysis with Pandas and Python — Udemy (Jun 2022)
-• SAP Extension Suite Expert — SAP (Oct 2021)
-• Software Engineering Bootcamp — Per Scholas, Seattle, WA (Nov 2023 – Mar 2024)
+• <relevant bullet with outcome, no period>
+• <relevant bullet with outcome, no period>
+• <relevant bullet with outcome, no period>
 
 RECIPE_PROJECT_BULLETS
-• <tailored bullet highlighting what this JD cares about>
-• <bullet>
-• <bullet>
+• <tailored bullet, no period>
+• <bullet, no period>
+• <bullet, no period>
 
 PLANT_PROJECT_BULLETS
-• <tailored bullet highlighting what this JD cares about>
-• <bullet>
-• <bullet>
+• <tailored bullet, no period>
+• <bullet, no period>
+• <bullet, no period>
+
+PROFESSIONAL_DEVELOPMENT
+• Google Data Analytics Professional Certificate, Coursera (Feb 2022)
+• Data Analysis with Pandas and Python, Udemy (Jun 2022)
+• SAP Extension Suite Expert, SAP (Oct 2021)
+• Software Engineering Bootcamp, Per Scholas, Seattle, WA (Nov 2023 to Mar 2024)
 
 EDUCATION_SECTION
 B.B.A. in Information Systems — The University of Texas at San Antonio (May 2019)
