@@ -378,7 +378,7 @@ export default function JobList() {
           </FormField>
           <FormField label="Tags (comma separated)"><input value={form.tags} onChange={e => setForm(f => ({ ...f, tags: e.target.value }))} placeholder="React, SaaS, B2B" /></FormField>
           <div style={{ display: 'flex', gap: 12, marginTop: 4 }}>
-            <button onClick={handleAdd} disabled={!form.title || !form.company} style={{ flex: 1, background: '#3b82f6', color: '#fff', border: 'none', borderRadius: 8, padding: '11px', cursor: 'pointer', fontWeight: 600, opacity: (!form.title || !form.company) ? 0.5 : 1 }}>
+            <button onClick={handleAdd} disabled={!form.title?.trim() || !form.company?.trim()} style={{ flex: 1, background: '#3b82f6', color: '#fff', border: 'none', borderRadius: 8, padding: '11px', cursor: (!form.title?.trim() || !form.company?.trim()) ? 'not-allowed' : 'pointer', fontWeight: 600, opacity: (!form.title?.trim() || !form.company?.trim()) ? 0.5 : 1 }}>
               Add Job {form.description ? '+ AI Score ✨' : ''}
             </button>
             <button onClick={() => setShowModal(false)} style={{ flex: 1, background: '#f1f5f9', color: '#475569', border: 'none', borderRadius: 8, padding: '11px', cursor: 'pointer', fontWeight: 600 }}>Cancel</button>
