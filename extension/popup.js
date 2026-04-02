@@ -76,9 +76,11 @@ function renderAutofillOnly(platform) {
     <div class="site-badge">${label}</div>
     <p class="autofill-hint">Click below to auto-fill the application form on this page.</p>
     <button class="btn-autofill" id="autofill-btn">✨ Auto-Fill Application</button>
+    <button class="btn-primary" id="import-btn" style="margin-top:8px">🚀 Import Page to JobHunt App</button>
     <button class="btn-secondary" id="open-app-btn">Open JobHunt App</button>`;
 
   document.getElementById('autofill-btn').addEventListener('click', () => doAutofill(platform));
+  document.getElementById('import-btn').addEventListener('click', () => doGenericImport());
   document.getElementById('open-app-btn').addEventListener('click', () => focusOrOpenApp());
 }
 
@@ -139,6 +141,52 @@ async function focusOrOpenApp() {
     return tabs[0];
   }
   return chrome.tabs.create({ url: APP_JOBS });
+}
+
+async function doGenericImport() {
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  if (!tab) return;
+
+  // Scrape basic job info from the current page
+  const scrapeResults = await chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    func: () => {
+      const title = document.querySelector('h1')?.innerText?.trim()
+        || document.title?.split(' - ')[0]?.trim()
+        || document.title?.trim()
+        || '';
+      const company = document.querySelector('[class*="company"], [data-company], .employer-name, .company-name')?.innerText?.trim() || '';
+      const location = document.querySelector('[class*="location"], [data-location], .job-location')?.innerText?.trim() || '';
+      // Grab visible text from common job description containers
+      const descEl = document.querySelector(
+        '[class*="description"], [class*="job-details"], [class*="jobDescription"], article, .posting-page, main'
+      );
+      const description = descEl?.innerText?.substring(0, 5000)?.trim() || '';
+      return { title, company, location, description, url: window.location.href };
+    },
+  });
+
+  const scraped = scrapeResults?.[0]?.result || { url: tab.url, title: tab.title };
+  extracted = scraped;
+  const payload = JSON.stringify(scraped);
+
+  const tabs = await chrome.tabs.query({ url: `${APP_ORIGIN}/*` });
+  if (tabs.length > 0) {
+    const appTab = tabs[0];
+    if (appTab.url?.includes('/jobs')) {
+      await injectIntoTab(appTab.id, payload);
+      await chrome.tabs.update(appTab.id, { active: true });
+      await chrome.windows.update(appTab.windowId, { focused: true });
+    } else {
+      await chrome.tabs.update(appTab.id, { url: APP_JOBS, active: true });
+      await chrome.windows.update(appTab.windowId, { focused: true });
+      waitForTabLoad(appTab.id, async () => { await injectIntoTab(appTab.id, payload); });
+    }
+  } else {
+    const newTab = await chrome.tabs.create({ url: APP_JOBS });
+    waitForTabLoad(newTab.id, async () => { await injectIntoTab(newTab.id, payload); });
+  }
+  renderSuccess();
 }
 
 async function doImport() {
