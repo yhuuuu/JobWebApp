@@ -200,14 +200,16 @@ Company: ${job.company}
 Description: ${job.description}
 
 ## Instructions
-1. Write a 3-4 sentence professional summary targeting this specific role and company. Frame it as a consulting-to-SaaS transition. Pair the JD's role title with proof from real experience. Do NOT just drop the title in cosmetically.
-2. Select and rewrite the MOST RELEVANT EY bullet points (pick 5-7 that best match the JD — not all 10). Every bullet MUST have at least one number or measurable outcome.
-3. Select 3 RELEVANT WellMed bullets from the source material. Pick the 3 that best match the JD. NEVER output fewer than 3 WellMed bullets.
-4. Include the Professional Development section with certifications and bootcamp, dated to show continuous learning during 2022-2024.
-5. Select the most relevant project(s) and rewrite their bullets to highlight what this job cares about. Focus on outcomes and achievements, not duties.
-6. Reorder skills section to put the most JD-relevant skills first
-7. Keep all facts strictly true — do NOT invent, exaggerate, or add experience that isn't listed above
-8. Every bullet must be achievement-focused (what was the outcome?) not duty-focused (what were you responsible for?)
+1. Write EXACTLY 3 sentences for the professional summary. No sentence over 25 words. Frame it as a consulting-to-SaaS transition. Pair the JD's role title with proof from real experience. Do NOT just drop the title in cosmetically.
+2. COMPANY NAME RULE: If the JD says "recruiting on behalf of", "our client", "a fast-growing company", or doesn't clearly name the hiring company, do NOT guess the company name. Use "a growing B2B SaaS company" or similar generic phrasing instead. Only name the company if the JD explicitly identifies who is hiring.
+3. Select and rewrite the MOST RELEVANT EY bullet points (pick 5-7 that best match the JD — not all 10). Every bullet MUST have at least one number or measurable outcome.
+4. Select 3 RELEVANT WellMed bullets from the source material. Pick the 3 that best match the JD. NEVER output fewer than 3 WellMed bullets.
+5. Include the Professional Development section with certifications and bootcamp, dated to show continuous learning during 2022-2024.
+6. Select the most relevant project(s) and rewrite their bullets to highlight what this job cares about. Focus on outcomes and achievements, not duties.
+7. Reorder skills section to put the most JD-relevant skills first
+8. SKILLS HONESTY: Only list consulting skills that were done professionally at EY or WellMed. Do NOT list "Pre-Sales Demos" — use "Technical Walkthroughs" instead. Do NOT list "Onboarding Planning" — use "Implementation Planning" instead. Bootcamp project experience does not count as professional consulting skill.
+9. Keep all facts strictly true — do NOT invent, exaggerate, or add experience that isn't listed above
+10. Every bullet must be achievement-focused (what was the outcome?) not duty-focused (what were you responsible for?)
 
 ## CRITICAL — Writing Style Rules (follow every single one):
 - Write like a real person wrote this, NOT like an AI. Short, punchy sentences. No corporate fluff.
@@ -215,8 +217,9 @@ Description: ${job.description}
 - BANNED words and phrases (never use): "spearheaded", "leveraged", "utilized", "orchestrated", "robust", "seamlessly", "cutting-edge", "synergy", "transformative", "innovative", "dynamic", "passionate", "results-driven", "detail-oriented", "cross-functional collaboration", "stakeholder alignment", "drove impactful outcomes", "deep dive", "pain points", "actionable insights", "holistic", "in a fast-paced environment", "wear many hats", "go-to person"
 - Do NOT start every bullet with a different fancy verb just to sound impressive. Use simple verbs: ran, built, wrote, reviewed, mapped, cleaned, created, sent, fixed, found.
 - Bullets should read like something you'd say out loud in an interview, not like a press release
-- Summary: conversational, specific, not generic. Reference the actual company/role. Max 3-4 sentences.
-- NO em-dashes (—) used decoratively. No semicolons stacked. No triple adjectives.
+- Summary: conversational, specific, not generic. EXACTLY 3 sentences, no more. No sentence over 25 words.
+- ZERO em-dashes (—), en-dashes (–), or Unicode dashes (‑) anywhere in the resume. Replace ALL dashes with commas or periods. No exceptions.
+- No semicolons stacked. No triple adjectives.
 - If a bullet has a number (35 systems, $19B, 30%), keep it. Numbers are good. Vague superlatives are not.
 
 ## Section Order (output in EXACTLY this order):
@@ -237,7 +240,7 @@ JOB_TITLE
 <targeted job title for this role>
 
 SUMMARY_SECTION
-<3-4 sentence professional summary. Frame as consulting-to-SaaS transition. Pair JD title with proof.>
+<EXACTLY 3 sentences. No sentence over 25 words. Consulting-to-SaaS transition framing.>
 
 SKILLS_CONTENT
 Core Tech: <most relevant tech skills first>
@@ -277,10 +280,10 @@ EDUCATION_SECTION
 B.B.A. in Information Systems — The University of Texas at San Antonio (May 2019)
 
 ---
-COACHING NOTE:
+COACHING NOTE (REQUIRED — you MUST output all 4 fields below, this is not optional):
 JD Keywords Found: <list which of the 8-10 extracted keywords appear in the resume>
-JD Keywords Missing: <list any that could not be naturally included — suggest where to add them>
-Self-Score: <rate this resume's fit 1-100 against the JD, be honest>
+JD Keywords Missing: <list any that could not be naturally included, suggest where to add them>
+Self-Score: <rate this resume's fit 1-100 against the JD, be brutally honest>
 Weak Spots: <1-2 sentences on what to emphasize in cover letter/interview to compensate>`;
 
   return await callAI(prompt, false);
