@@ -204,6 +204,7 @@ Description: ${job.description}
 
 ## CRITICAL — Writing Style Rules (follow every single one):
 - Write like a real person wrote this, NOT like an AI. Short, punchy sentences. No corporate fluff.
+- NEVER use first-person pronouns (I, I'm, my, me, we). Resumes use implied first person. Example: "Former EY consultant with 3 years..." NOT "I'm a former EY consultant who spent 3 years..."
 - BANNED words and phrases (never use): "spearheaded", "leveraged", "utilized", "orchestrated", "robust", "seamlessly", "cutting-edge", "synergy", "transformative", "innovative", "dynamic", "passionate", "results-driven", "detail-oriented", "cross-functional collaboration", "stakeholder alignment", "drove impactful outcomes", "deep dive", "pain points", "actionable insights", "holistic", "in a fast-paced environment", "wear many hats", "go-to person"
 - Do NOT start every bullet with a different fancy verb just to sound impressive. Use simple verbs: ran, built, wrote, reviewed, mapped, cleaned, created, sent, fixed, found.
 - Bullets should read like something you'd say out loud in an interview, not like a press release
