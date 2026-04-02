@@ -45,7 +45,7 @@ function escapeXml(str) {
  */
 function expandParagraph(paraXml, placeholder, replacementText) {
   const lines = replacementText.split('\n')
-    .map(l => l.replace(/^[\u2022\u00B7\u2013\-\*]\s*/, '').trim()) // strip •, ·, –, -, *
+    .map(l => l.replace(/^[\u2022\u00B7\u2013\-\*]\s*/, '').replace(/\*\*/g, '').trim())
     .filter(Boolean);
 
   if (lines.length === 0) return paraXml;
@@ -93,9 +93,9 @@ export async function downloadAsWord(aiText, jobTitle) {
   for (const [placeholder, value] of Object.entries(sections)) {
     if (!value) continue;
 
-    // Strip all bullet prefix characters from every line
+    // Strip all bullet prefix characters and markdown bold from every line
     const lines = value.split('\n')
-      .map(l => l.replace(/^[\u2022\u00B7\u2013\-\*]\s*/, '').trim())
+      .map(l => l.replace(/^[\u2022\u00B7\u2013\-\*]\s*/, '').replace(/\*\*/g, '').trim())
       .filter(Boolean);
     if (lines.length === 0) continue;
 
@@ -106,11 +106,13 @@ export async function downloadAsWord(aiText, jobTitle) {
       continue;
     }
 
-    if (lines.length === 1) {
-      // Single line — just replace text in-place
+    // Summary and Education: join into single paragraph (no cloning)
+    const singleParaSections = ['SUMMARY_SECTION', 'JOB_TITLE', 'EDUCATION_SECTION'];
+    if (singleParaSections.includes(placeholder) || lines.length === 1) {
+      const joined = lines.join(' ');
       const replaced = originalPara.replace(
         new RegExp(`<w:t[^>]*>${placeholder}</w:t>`),
-        `<w:t xml:space="preserve">${escapeXml(lines[0])}</w:t>`
+        `<w:t xml:space="preserve">${escapeXml(joined)}</w:t>`
       );
       xml = xml.replace(originalPara, replaced);
     } else {

@@ -222,7 +222,8 @@ Description: ${job.description}
 - No semicolons stacked. No triple adjectives.
 - If a bullet has a number (35 systems, $19B, 30%), keep it. Numbers are good. Vague superlatives are not.
 - NEVER end a bullet point with a period. Bullets do not get periods. Example: "Ran discovery sessions across 35 systems" NOT "Ran discovery sessions across 35 systems."
-- Skills categories must be bold: **Core Tech:** not just "Core Tech:"
+- Skills categories: just write "Core Tech:" not "**Core Tech:**". No markdown. The Word template handles bold formatting.
+- Summary MUST be a single continuous paragraph. Do NOT put line breaks between sentences. All 3 sentences on one line.
 
 ## Section Order (output in EXACTLY this order, matching the Word template):
 1. JOB_TITLE
@@ -242,13 +243,13 @@ JOB_TITLE
 <targeted job title for this role>
 
 SUMMARY_SECTION
-<EXACTLY 3 sentences. No sentence over 25 words. Consulting-to-SaaS transition framing.>
+<EXACTLY 3 sentences on ONE line with no line breaks. No sentence over 25 words. Consulting-to-SaaS transition framing. Write all 3 sentences as a single continuous paragraph.>
 
 SKILLS_CONTENT
-• **Core Tech:** <most relevant tech skills first>
-• **Solutions Consulting:** <most relevant consulting skills first>
-• **Tools:** <relevant tools>
-• **Languages:** Native/Fluent in English, Mandarin, and Cantonese
+• Core Tech: <most relevant tech skills first>
+• Solutions Consulting: <most relevant consulting skills first>
+• Tools: <relevant tools>
+• Languages: Native/Fluent in English, Mandarin, and Cantonese
 
 EY_EXPERIENCE
 • <bullet with number/outcome, NO period at end — pick 5-7 most relevant>
