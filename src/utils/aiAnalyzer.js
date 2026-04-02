@@ -104,12 +104,16 @@ Respond ONLY with valid JSON:
   return JSON.parse(content);
 }
 
+
 export async function generateTailoredResume(job, profile) {
   if (!isConfigured()) throw new Error('NO_CONFIG');
   if (!job.description) throw new Error('NO_DESCRIPTION');
 
   const prompt = `
-You are an expert resume writer. Rewrite this candidate's resume to be perfectly tailored for the job below.
+You are an expert resume writer AND a senior recruiter who screens 200+ resumes daily. Rewrite this candidate's resume to be perfectly tailored for the job below.
+
+## STEP 1 — Keyword Extraction (do this FIRST, before writing anything)
+Read the job description below and extract the 8–10 highest-intent keywords/phrases that an ATS and recruiter would scan for. These MUST appear naturally in the resume — not stuffed, but woven into bullets and skills where the candidate's real experience supports them.
 
 ## Candidate Background
 Name: ${profile.name}
@@ -118,6 +122,9 @@ Email: ${profile.email || ''}
 LinkedIn: ${profile.linkedin || ''}
 GitHub: ${profile.github || ''}
 Location: ${profile.location}
+
+## Career Positioning
+This candidate is transitioning from enterprise technology consulting into client-facing B2B SaaS roles (Solutions Consultant, Customer Solutions Engineer, Implementation Consultant). Frame the resume as a consulting-to-SaaS-transition story. Do NOT pretend the candidate already has SaaS experience — instead, show how consulting skills directly transfer.
 
 ## Work Experience
 
@@ -144,6 +151,13 @@ WellMed Medical Management / Optum | IT Project Analyst Intern | San Antonio, TX
 • Coordinated interaction and communication between cross-functional project team members
 • Maintained HIPAA-compliant technical documentation in SharePoint, ensuring regulatory and audit readiness
 
+## Professional Development (Career Transition / Technical Upskilling, 2022–2024)
+• Google Data Analytics Professional Certificate — Coursera (Feb 2022)
+• Data Analysis with Pandas and Python — Udemy (Jun 2022)
+• SAP Extension Suite Expert — SAP (Oct 2021)
+• Software Engineering Bootcamp — Per Scholas, Seattle, WA (Nov 2023 – Mar 2024)
+  Coursework: Advanced HTML/CSS, JavaScript DOM Manipulation, API Integration, React
+
 ## Technical Projects
 
 Recipe Organizer – AI-Powered Recipe Management App | MERN Stack, TypeScript, Azure OpenAI, JWT Auth
@@ -168,15 +182,7 @@ GitHub: https://github.com/yhuuuu/PlantSeeker_FrontEnd + PlantSeeker_BackEnd
 • Tech: React, Node.js, Express, MongoDB, Mongoose, Axios, CSS, Bootstrap, FormData, Session Storage
 
 ## Education
-Software Engineering Bootcamp • Per Scholas | Seattle, WA | Nov 2023 – Mar 2024
-Coursework: Advanced HTML/CSS, JavaScript DOM Manipulation, API Integration, React
-
 B.B.A. in Information Systems • The University of Texas at San Antonio | San Antonio, TX | May 2017 – May 2019
-
-## Certifications
-• Google Data Analytics Professional Certificate — Coursera (Feb 2022)
-• Data Analysis with Pandas and Python — Udemy (Jun 2022)
-• SAP Extension Suite Expert — SAP (Oct 2021)
 
 ## Skills
 Frontend & Web: JavaScript (ES6+), React 18, HTML5, CSS3, TailwindCSS, Responsive Web Design
@@ -184,7 +190,7 @@ Backend & APIs: Node.js, Express, REST APIs, MongoDB Atlas, Mongoose, API Authen
 Data & Analytics: SQL, Advanced Excel (Data Mapping, Reconciliation, Scorecards), Data Taxonomy Design
 Solutions Consulting & Presales: Technical Discovery, Architecture Walkthroughs, Implementation Scoping, Technical Demos, POC Development, RFP & Security Questionnaire Support, Stakeholder Management
 AI: OpenAI API, Generative AI Integration, Azure OpenAI
-Tools: Postman, Git/GitHub, VS Code, Netlify, Render, SharePoint, SAP, Coupa
+Tools: Postman, Git/GitHub, VS Code, Netlify, Render, SharePoint, ServiceNow, SAP, Coupa
 
 Languages: English (Native), Mandarin (Native), Cantonese (Native)
 
@@ -194,13 +200,14 @@ Company: ${job.company}
 Description: ${job.description}
 
 ## Instructions
-1. Write a 3-4 sentence professional summary targeting this specific role and company
-2. Select and rewrite the MOST RELEVANT EY bullet points (pick 5-7 that best match the JD — not all 10)
-3. Select the most relevant project(s) and rewrite their bullets to highlight what this job cares about
-4. Reorder skills section to put the most JD-relevant skills first
-5. Keep all facts strictly true — do NOT invent, exaggerate, or add experience that isn't listed above
-6. Use strong action verbs and include quantified results wherever they exist in the source material
-7. Output EXACTLY in the template format below — this will be pasted directly into a Word doc
+1. Write a 3-4 sentence professional summary targeting this specific role and company. Frame it as a consulting-to-SaaS transition. Pair the JD's role title with proof from real experience. Do NOT just drop the title in cosmetically.
+2. Select and rewrite the MOST RELEVANT EY bullet points (pick 5-7 that best match the JD — not all 10). Every bullet MUST have at least one number or measurable outcome.
+3. Select 3 RELEVANT WellMed bullets from the source material. Pick the 3 that best match the JD. NEVER output fewer than 3 WellMed bullets.
+4. Include the Professional Development section with certifications and bootcamp, dated to show continuous learning during 2022-2024.
+5. Select the most relevant project(s) and rewrite their bullets to highlight what this job cares about. Focus on outcomes and achievements, not duties.
+6. Reorder skills section to put the most JD-relevant skills first
+7. Keep all facts strictly true — do NOT invent, exaggerate, or add experience that isn't listed above
+8. Every bullet must be achievement-focused (what was the outcome?) not duty-focused (what were you responsible for?)
 
 ## CRITICAL — Writing Style Rules (follow every single one):
 - Write like a real person wrote this, NOT like an AI. Short, punchy sentences. No corporate fluff.
@@ -208,9 +215,21 @@ Description: ${job.description}
 - BANNED words and phrases (never use): "spearheaded", "leveraged", "utilized", "orchestrated", "robust", "seamlessly", "cutting-edge", "synergy", "transformative", "innovative", "dynamic", "passionate", "results-driven", "detail-oriented", "cross-functional collaboration", "stakeholder alignment", "drove impactful outcomes", "deep dive", "pain points", "actionable insights", "holistic", "in a fast-paced environment", "wear many hats", "go-to person"
 - Do NOT start every bullet with a different fancy verb just to sound impressive. Use simple verbs: ran, built, wrote, reviewed, mapped, cleaned, created, sent, fixed, found.
 - Bullets should read like something you'd say out loud in an interview, not like a press release
-- Summary: conversational, specific, not generic. Reference the actual company/role. Max 3 sentences.
+- Summary: conversational, specific, not generic. Reference the actual company/role. Max 3-4 sentences.
 - NO em-dashes (—) used decoratively. No semicolons stacked. No triple adjectives.
 - If a bullet has a number (35 systems, $19B, 30%), keep it. Numbers are good. Vague superlatives are not.
+
+## Section Order (output in EXACTLY this order):
+1. JOB_TITLE
+2. SUMMARY_SECTION
+3. SKILLS_CONTENT
+4. EY_EXPERIENCE (5-7 bullets)
+5. WELLMED_EXPERIENCE (exactly 3 bullets)
+6. PROFESSIONAL_DEVELOPMENT (certs + bootcamp, dated)
+7. RECIPE_PROJECT_BULLETS (3 bullets)
+8. PLANT_PROJECT_BULLETS (3 bullets)
+9. EDUCATION_SECTION
+10. COACHING NOTE
 
 Output EXACTLY this format (replace each placeholder, keep all headers/labels as-is):
 
@@ -218,7 +237,7 @@ JOB_TITLE
 <targeted job title for this role>
 
 SUMMARY_SECTION
-<3-4 sentence professional summary targeting this specific role and company>
+<3-4 sentence professional summary. Frame as consulting-to-SaaS transition. Pair JD title with proof.>
 
 SKILLS_CONTENT
 Core Tech: <most relevant tech skills first>
@@ -227,14 +246,22 @@ Tools: <relevant tools>
 Languages: Native/Fluent in English, Mandarin, and Cantonese
 
 EY_EXPERIENCE
-• <most relevant tailored bullet — pick 5-7 from source material that best match the JD>
+• <bullet with number/outcome — pick 5-7 most relevant>
 • <bullet>
 • <bullet>
 • <bullet>
 • <bullet>
 
 WELLMED_EXPERIENCE
-• <tailored bullet if relevant to JD, otherwise write: "Maintained HIPAA-compliant technical documentation in SharePoint, ensuring audit readiness and regulatory alignment">
+• <relevant bullet with outcome>
+• <relevant bullet with outcome>
+• <relevant bullet with outcome>
+
+PROFESSIONAL_DEVELOPMENT
+• Google Data Analytics Professional Certificate — Coursera (Feb 2022)
+• Data Analysis with Pandas and Python — Udemy (Jun 2022)
+• SAP Extension Suite Expert — SAP (Oct 2021)
+• Software Engineering Bootcamp — Per Scholas, Seattle, WA (Nov 2023 – Mar 2024)
 
 RECIPE_PROJECT_BULLETS
 • <tailored bullet highlighting what this JD cares about>
@@ -246,8 +273,15 @@ PLANT_PROJECT_BULLETS
 • <bullet>
 • <bullet>
 
+EDUCATION_SECTION
+B.B.A. in Information Systems — The University of Texas at San Antonio (May 2019)
+
 ---
-COACHING NOTE: <1-2 sentences of honest advice — what to emphasize in cover letter/interview, and any gaps to address>`;
+COACHING NOTE:
+JD Keywords Found: <list which of the 8-10 extracted keywords appear in the resume>
+JD Keywords Missing: <list any that could not be naturally included — suggest where to add them>
+Self-Score: <rate this resume's fit 1-100 against the JD, be honest>
+Weak Spots: <1-2 sentences on what to emphasize in cover letter/interview to compensate>`;
 
   return await callAI(prompt, false);
 }

@@ -5,7 +5,8 @@ import PizZip from 'pizzip';
  */
 function parseAIOutput(text) {
   const keys = ['JOB_TITLE', 'SUMMARY_SECTION', 'SKILLS_CONTENT', 'EY_EXPERIENCE',
-    'WELLMED_EXPERIENCE', 'RECIPE_PROJECT_BULLETS', 'PLANT_PROJECT_BULLETS'];
+    'WELLMED_EXPERIENCE', 'PROFESSIONAL_DEVELOPMENT', 'RECIPE_PROJECT_BULLETS',
+    'PLANT_PROJECT_BULLETS', 'EDUCATION_SECTION'];
 
   const sections = Object.fromEntries(keys.map(k => [k, '']));
 

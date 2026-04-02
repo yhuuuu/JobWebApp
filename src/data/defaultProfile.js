@@ -38,7 +38,7 @@ export const defaultProfile = {
   languages: ['English (Native)', 'Mandarin (Native)', 'Cantonese (Native)'],
   minSalary: 60000,
   maxSalary: 150000,
-  yearsExperience: 3,
+  yearsExperience: 5,
 };
 
 export const defaultResumes = [
