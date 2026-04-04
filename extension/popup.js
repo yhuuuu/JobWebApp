@@ -8,6 +8,7 @@ function detectPlatform(url) {
   if (!url) return 'unknown';
   const h = url.toLowerCase();
   if (h.includes('linkedin.com/jobs'))                       return 'linkedin';
+  if (h.includes('indeed.com'))                              return 'indeed';
   if (h.includes('myworkday') || h.includes('wd5.'))         return 'workday';
   if (h.includes('greenhouse.io'))                           return 'greenhouse';
   if (h.includes('lever.co'))                                return 'lever';
@@ -24,6 +25,7 @@ function detectPlatform(url) {
 
 const PLATFORM_LABELS = {
   linkedin: 'LinkedIn Easy Apply',
+  indeed: 'Indeed Apply',
   workday: 'Workday',
   greenhouse: 'Greenhouse',
   lever: 'Lever',
@@ -45,10 +47,11 @@ async function init() {
 
   const platform = detectPlatform(tab.url);
 
-  if (platform === 'linkedin') {
-    // LinkedIn: extract job details + offer import + autofill
+  if (platform === 'linkedin' || platform === 'indeed') {
+    // LinkedIn & Indeed: extract job details + offer import + autofill
+    const scriptFile = platform === 'indeed' ? 'indeed-content.js' : 'content.js';
     try {
-      await chrome.scripting.executeScript({ target: { tabId: tab.id }, files: ['content.js'] });
+      await chrome.scripting.executeScript({ target: { tabId: tab.id }, files: [scriptFile] });
       const result = await chrome.tabs.sendMessage(tab.id, { action: 'extract' });
       if (!result?.title) { renderAutofillOnly(platform); return; }
       extracted = result;
