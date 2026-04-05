@@ -305,8 +305,8 @@ export default function JobList() {
                   )}
                 </div>
 
-                {/* Action buttons — resume + cover letter for strong matches */}
-                {job.aiAnalysis?.overallScore >= 70 && (
+                {/* Action buttons — resume + cover letter */}
+                {job.aiAnalysis && (
                   <div style={{ padding: '0 20px 16px', display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                     <button
                       onClick={() => handleGenerateResume(job)}
