@@ -297,16 +297,24 @@ export async function generateCoverLetter(job, profile) {
   if (!job.description) throw new Error('NO_DESCRIPTION');
 
   const prompt = `
-You are helping Yuting Hu write a cover letter for a job application. Write it in Yuting's voice — direct, confident, not stiff.
+You are helping Yuting Hu write a cover letter. Write it in Yuting's voice — direct, confident, conversational, not stiff or corporate.
 
 ## About Yuting
 Name: ${profile.name}
 Email: ${profile.email}
+Phone: (210)-294-6504
 LinkedIn: ${profile.linkedin}
 Location: ${profile.location}
-Languages: English, Mandarin, Cantonese (all native)
+Languages: English, Mandarin, Cantonese (all native/fluent)
 
-Background: 3 years as Associate Technology Consultant at EY (Fortune 500 work — UPS $19B procurement project). Now a full-stack developer (React, Node.js, TypeScript, MongoDB, Azure OpenAI). Trilingual. Bootcamp grad (Per Scholas, 2024). Strong at client-facing work, technical discovery, translating complex things into plain language.
+Background:
+- 3 years as Associate Technology Consultant at EY (Aug 2019 - Jun 2022). Key engagement: 6-month Fortune 500 project (UPS) analyzing 35+ procurement systems across a $19B spend environment. Led 1:1 discovery sessions with system owners, scored systems on data quality, cleaned/reconciled data using SQL and Excel, mapped spend taxonomy, built a three-wave remediation roadmap, created one-page system summaries for senior leadership.
+- IT Project Analyst Intern at WellMed/Optum (Aug-Dec 2018). Tracked multiple IT projects, maintained records in ServiceNow, coordinated across technical and business teams.
+- Software Engineering Bootcamp at Per Scholas, Seattle (Nov 2023 - Mar 2024). Full-stack development: React, Node.js, JavaScript, API integration.
+- Two live production apps: Recipe Organizer (MERN + Azure OpenAI, JWT auth) and PlantSeeker (multi-API orchestration, image upload).
+- BBA in Information Systems from UT San Antonio (2019).
+- Certifications: Google Data Analytics, Data Analysis with Pandas/Python, SAP Extension Suite Expert.
+- Skills: SQL, REST APIs, JavaScript, React, Node.js, MongoDB, Data Modeling, Postman, GitHub, ServiceNow, SharePoint, SAP, Coupa, Excel.
 
 ## Job
 Title: ${job.title}
@@ -314,14 +322,45 @@ Company: ${job.company}
 Description: ${job.description}
 
 ## Instructions
-- 3 short paragraphs, max 250 words total
-- Paragraph 1: Why this specific role at this specific company (not generic)
-- Paragraph 2: 1-2 concrete things from Yuting's background that directly match what they need — use real details (EY/UPS, projects, skills), not vague claims
-- Paragraph 3: Short closer, confident not desperate. One sentence max.
-- Sound like a real person wrote this. Conversational. No buzzwords.
-- BANNED: "I am writing to express my interest", "I am a passionate", "I would be a great fit", "leveraged", "spearheaded", "synergy", "transformative", "I believe my skills align"
-- Start with something that isn't "I" — vary the opener
-- Sign off: "Best,\\nYuting Hu"
+
+STEP 1 — Read the JD and identify 3-4 specific requirements or responsibilities that Yuting's experience directly addresses. Use these as the backbone of paragraph 2.
+
+STEP 2 — Write the cover letter with this exact structure:
+
+HEADER (always include):
+${profile.name}
+${profile.location} | (210)-294-6504 | ${profile.email}
+
+[blank line]
+Dear Hiring Manager,
+[blank line]
+
+PARAGRAPH 1 (2-3 sentences max):
+- Open with something specific about WHY this role at THIS company (not generic). Mention the exact role title "${job.title}" by name.
+- Do NOT start with "I" — vary the opener.
+- Show you understand what the role actually involves.
+
+PARAGRAPH 2 (3-5 sentences max):
+- Connect 2-3 specific things from Yuting's background to specific requirements from the JD.
+- Use real details: numbers, project names, tools. Not vague claims.
+- Pick the most relevant experience — EY consulting if the role is client-facing/implementation, technical projects if the role is engineering-focused, both if hybrid.
+- Each sentence should map to something the JD actually asks for.
+
+PARAGRAPH 3 (1-2 sentences max):
+- Confident closer. Reference the company name. No begging.
+
+Sign off:
+Best,
+${profile.name}
+
+## Style Rules
+- Total body text (paragraphs only, not header): 150-220 words. No more.
+- Sound like a real person, not a template. Conversational but professional.
+- Every claim must be backed by real experience from the background above. Do NOT fabricate or exaggerate.
+- Only mention trilingual ability if the role involves international markets, diverse clients, or communication is a key requirement.
+- BANNED phrases: "I am writing to express my interest", "I am passionate about", "I would be a great fit", "leveraged", "spearheaded", "synergy", "transformative", "I believe my skills align", "excited to apply", "thrilled", "eager"
+- No em dashes (use commas or periods instead)
+- Do not include any subject line, just the letter itself
 
 Output just the letter text, nothing else.`;
 
