@@ -170,8 +170,8 @@ export default function JobList() {
   body { font-family: 'Georgia', serif; max-width: 780px; margin: 40px auto; padding: 0 32px; color: #1a1a1a; font-size: 13.5px; line-height: 1.7; }
   pre { white-space: pre-wrap; font-family: inherit; font-size: inherit; margin: 0; }
   @media print {
-    body { margin: 0; padding: 24px 40px; }
-    @page { margin: 1in; }
+    body { margin: 0; padding: 0.75in 1in; }
+    @page { margin: 0; }
   }
 </style>
 </head>
